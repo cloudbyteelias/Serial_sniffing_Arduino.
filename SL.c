@@ -8,9 +8,25 @@
 #include <math.h>
 #include <unistd.h>
 
-void writelog(FILE *fp, char *str);
+const BR = 0;
+const char *buffer;
+
+
+
+void openlog(){};
+void writelog(FILE *fp, char *str){fprintf(fp, "%s", str);};
 void jmpstring(const char* mylog);
 struct termios SerialPortSettings;
+
+
+
+void generatelog(){
+
+
+
+}
+
+
 
 
 
