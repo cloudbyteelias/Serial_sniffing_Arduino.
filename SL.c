@@ -13,7 +13,10 @@ const char *buffer;
 void writelog(FILE *fp, char *str){fprintf(fp, "%s", str);};
 
 void openserialport(){
-   
+
+
+
+
 }
 
 
