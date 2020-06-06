@@ -17,10 +17,10 @@ void openserialport(){
   
 const unsigned int BR = 0;
 const char *buffer;
-const short char *lport;
+const short char *lport = "/dev/ttyUSB0";
 const int p; 
 
-  p = open("%s",lport);
+  p = open("%s",lport,O_RDWR | O_NOCTTY);
   if(p = -1){
      printf("Error to open port");
   }else{
@@ -51,11 +51,13 @@ const int p;
             
    tcflush(p,TCIFLUSH);
    RB = read(p,&BR);
+
+   for (int i=0; i < RB; i++){
+      printf("%c",BR[i]);
+   }
    
-
-
-
-
+   close(p);
+      
 }
 
 
