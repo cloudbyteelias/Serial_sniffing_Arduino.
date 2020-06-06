@@ -4,40 +4,27 @@
 #include <termio.h>
 #include <unistd.h>
 #include <errno.h>
-#define FILE *fp;
+#include <sys/types.h>
+#include <math.h>
+#include <unistd.h>
 
-
+void writelog(FILE *fp, char *str);
+void jmpstring(const char* mylog);
 struct termios SerialPortSettings;
 
 
 
-
-
-
-void banner(){
-
-
-}
-
-void open(){
-
-
-}
-
-
-void log(txt){
+void log(char* strlog){
+FILE *fp;
 fp = fopen ("test.txt","w+");
-fputs()
 
+fprintf("%s",strlog);
+fclose(fp);
 }
 
 
 
 int main(void) {
-   FILE *fp;
-
-   fp = fopen("test.txt", "w+");
-   fprintf(fp, "This is testing for fprintf...\n");
-   fputs("This is testing for fputs...\n", fp);
-   fclose(fp);
+  
+log("dasdsd");
 }
