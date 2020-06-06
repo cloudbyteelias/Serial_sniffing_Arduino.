@@ -15,22 +15,35 @@ const short char *lport;
 void writelog(FILE *fp, char *str){fprintf(fp, "%s", str);};
 
 void openserialport(){
-   
+  int p; 
+
+  p = open("%s",lport);
+  if(p = -1){
+     printf("Error to open port");
+  }else{
+     printf("Porta aberta com sucesso");
+  }    
+            
       struct termios PORT;
-      tcgetattr(fd, &SerialPortSettings);	
-		cfsetispeed(&SerialPortSettings,B9600);                      
-		cfsetospeed(&SerialPortSettings,B9600); 
-		SerialPortSettings.c_cflag &= ~PARENB;   
-		SerialPortSettings.c_cflag &= ~CSTOPB;   
-		SerialPortSettings.c_cflag &= ~CSIZE;
-		SerialPortSettings.c_cflag |=  CS8;  
-		SerialPortSettings.c_cflag &= ~CRTSCTS; 
-		SerialPortSettings.c_cflag |= CREAD | CLOCAL; 
-		SerialPortSettings.c_iflag &= ~(IXON | IXOFF | IXANY);
-		SerialPortSettings.c_iflag &= ~(ICANON | ECHO | ECHOE | ISIG);  
-		SerialPortSettings.c_oflag &= ~OPOST;
-		SerialPortSettings.c_cc[VMIN] = 10; 
-		SerialPortSettings.c_cc[VTIME] = 0; 
+      tcgetattr(fd, &PORT);	
+		cfsetispeed(&PORT,B9600);                      
+		cfsetospeed(&PORT,B9600); 
+		PORT.c_cflag &= ~PARENB;   
+		PORT.c_cflag &= ~CSTOPB;   
+		PORT.c_cflag &= ~CSIZE;
+		PORT.c_cflag |=  CS8;  
+		PORT.c_cflag &= ~CRTSCTS; 
+		PORT.c_cflag |= CREAD | CLOCAL; 
+		PORT.c_iflag &= ~(IXON | IXOFF | IXANY);
+		PORT.c_iflag &= ~(ICANON | ECHO | ECHOE | ISIG);  
+		PORT.c_oflag &= ~OPOST;
+		PORT.c_cc[VMIN] = 10; 
+		PORT.c_cc[VTIME] = 0; 
+
+
+
+
+
 }
 
 
