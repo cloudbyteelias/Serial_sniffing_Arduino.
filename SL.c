@@ -15,8 +15,8 @@ void writelog(FILE *fp, char *str){fprintf(fp, "%s", str);};
 
 void openserialport(){
   
-const unsigned int BR = 0;
-const char *buffer;
+unsigned int BR = 0;
+char *buffer;
 const char *lport = "/dev/ttyUSB0";
 int p; 
 
@@ -50,10 +50,10 @@ int p;
    }
             
    tcflush(p,TCIFLUSH);
-   BR = read(p,&buffer);
+   BR = read(p,&buffer,45);
 
    for (int i=0; i < BR; i++){
-      printf("%c",BR[i]);
+      printf("%c",buffer[i]);
    }
    
    close(p);
