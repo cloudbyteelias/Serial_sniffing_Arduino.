@@ -17,8 +17,8 @@ void openserialport(){
   
 const unsigned int BR = 0;
 const char *buffer;
-const short char *lport = "/dev/ttyUSB0";
-const int p; 
+const char *lport = "/dev/ttyUSB0";
+int p; 
 
   p = open("%s",lport,O_RDWR | O_NOCTTY);
   if(p = -1){
@@ -28,7 +28,7 @@ const int p;
   }    
             
       struct termios PORT;
-      tcgetattr(fd, &PORT);	
+      tcgetattr(p, &PORT);	
 		cfsetispeed(&PORT,B9600);                      
 		cfsetospeed(&PORT,B9600); 
 		PORT.c_cflag &= ~PARENB;   
@@ -43,16 +43,16 @@ const int p;
 		PORT.c_cc[VMIN] = 10; 
 		PORT.c_cc[VTIME] = 0; 
 
-   if((tcsetattr(fd,TCSANOW,&SerialPortSettings)) != 0){
+   if((tcsetattr(p,TCSANOW,&PORT)) != 0){
 		printf("OKAY");    
    }else{
       printf("falha");
    }
             
    tcflush(p,TCIFLUSH);
-   RB = read(p,&BR);
+   BR = read(p,&buffer);
 
-   for (int i=0; i < RB; i++){
+   for (int i=0; i < BR; i++){
       printf("%c",BR[i]);
    }
    
