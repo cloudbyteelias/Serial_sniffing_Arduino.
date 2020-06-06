@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <math.h>
 #include <unistd.h>
+#include <time.h>
 
 const unsigned int BR = 0;
 const char *buffer;
