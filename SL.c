@@ -41,7 +41,14 @@ void openserialport(){
 		PORT.c_cc[VMIN] = 10; 
 		PORT.c_cc[VTIME] = 0; 
 
-
+   if((tcsetattr(fd,TCSANOW,&SerialPortSettings)) != 0){
+		printf("OKAY");    
+   }else{
+      printf("falha");
+   }
+            
+   tcflush(p,TCIFLUSH);
+   
 
 
 
