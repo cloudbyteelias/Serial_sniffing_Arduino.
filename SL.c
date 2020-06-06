@@ -8,17 +8,23 @@
 #include <math.h>
 #include <unistd.h>
 
-const BR = 0;
+const unsigned int BR = 0;
 const char *buffer;
-
 void writelog(FILE *fp, char *str){fprintf(fp, "%s", str);};
-void jmpstring(const char* mylog);
-struct termios SerialPortSettings;
+
+void openserialport(){
+   
+}
 
 
 
+
+
+void banner(){
+printf("=====|SR-INO|=====");
+};
 
 int main(void) {
-  
-log("dasdsd");
+   banner();
+
 }
