@@ -9,14 +9,16 @@
 #include <unistd.h>
 #include <time.h>
 
+void writelog(FILE *fp, char *str){fprintf(fp, "%s", str);};
+
+
+
+void openserialport(){
+  
 const unsigned int BR = 0;
 const char *buffer;
 const short char *lport;
-
-void writelog(FILE *fp, char *str){fprintf(fp, "%s", str);};
-
-void openserialport(){
-  int p; 
+const int p; 
 
   p = open("%s",lport);
   if(p = -1){
@@ -48,7 +50,9 @@ void openserialport(){
    }
             
    tcflush(p,TCIFLUSH);
+   RB = read(p,&BR);
    
+
 
 
 
