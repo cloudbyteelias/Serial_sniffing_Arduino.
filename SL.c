@@ -7,7 +7,8 @@
     void main(void){
     	
         	int fd;
-        	fd = open("/dev/ttyUSB0",O_RDWR | O_NOCTTY);								
+        	const char port[] = "/dev/ttyUSB0";
+          fd = open("port,O_RDWR | O_NOCTTY);								
         	if(fd == -1)						
             	   printf("\n  Error! in Opening ttyUSB0  ");
         	else
@@ -15,7 +16,7 @@
 
 		
         
-        struct termios SerialPortSettings;	                      
+    struct termios SerialPortSettings;	                      
 		tcgetattr(fd, &SerialPortSettings);	
 		cfsetispeed(&SerialPortSettings,B9600); 
 		cfsetospeed(&SerialPortSettings,B9600); 
