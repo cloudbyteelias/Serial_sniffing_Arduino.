@@ -5,9 +5,12 @@
 #include <errno.h>   
 #include <time.h>
 
+ int serial_log();
 
-    void main(void){
-          
+
+  
+  int serial_log(void){
+
       struct termios serial;	                      
       int fd;
       const char port[] = "/dev/ttyUSB0";      // Edit for other port 
@@ -48,4 +51,13 @@
 
 		close(fd); 
 
-    	}
+
+  }
+
+
+  int main(void){
+          
+  serial_log();    
+  
+  
+  }
