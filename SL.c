@@ -4,13 +4,15 @@
 #include <unistd.h>  
 #include <errno.h>   
 #include <time.h>
+#include <stdlib.h>
+
 
  int serial_log();
 
-
   
   int serial_log(void){
-
+      FILE  *out;
+      char line [50];
       struct termios serial;	                      
       int fd;
       const char port[] = "/dev/ttyUSB0";      // Edit for other port 
@@ -54,10 +56,17 @@
 
   }
 
+  //int get_time(void){
+  //  const time_t timer = time(NULL);
+  //  time = ("ctime is %s\n", ctime(&timer));
+  //  printf("%d",time);
+ // }
+
+
 
   int main(void){
           
   serial_log();    
-  
+
   
   }
