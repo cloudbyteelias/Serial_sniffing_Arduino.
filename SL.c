@@ -11,15 +11,18 @@
 
   
   int serial_log(void){
+      
       FILE  *out;
       char line [50];
       struct termios serial;	                      
       int fd;
-      const char port[] = "/dev/ttyUSB0";      // Edit for other port 
-      fd = open(port,O_RDWR | O_NOCTTY);			//O_RDWR Read and write,					
-        if(fd == -1)						
-        	   printf("\n  Error Fail open port %s",port);
-        else
+      const char port[] = "/dev/ttyUSB0";       
+      fd = open(port,O_RDWR | O_NOCTTY);								
+        if(fd == -1){						
+        	   //out = fopen("Error","a");
+             //fprintf("Error open %c",port);
+             //fclose(out);
+        }else
              printf("\n  %s Opened Successfully", port);
 
 		if(tcgetattr(fd, &serial) < 0) {printf("ERROR IN C_FLAG CONFIG %s",port);}
@@ -42,11 +45,11 @@
     if(cfsetispeed(&serial, B9600) < 0 || cfsetospeed(&serial, B9600) < 0) {printf("SPEED ERROR IN %s",port);}
     if(tcsetattr(fd, TCSAFLUSH, &serial) < 0) {printf(" %s ERROR TO SET attributes",port);}else{printf("%s Read Okay",port);}
 		
-    char read_buffer[10];   
-		int  bytes_read = 0;    
+    char read_buffer[100];   
+		long int  bytes_read = 0;    
  		int i = 0;
 
-		bytes_read = read(fd,&read_buffer,10); 
+		bytes_read = read(fd,&read_buffer,100); 
 		
     for(i=0;i<bytes_read;i++){
          out = fopen("log","a");
@@ -55,21 +58,9 @@
          
     }	 
      
-
-
 		close(fd); 
-
-
   }
-
-  //int get_time(void){
-  //  const time_t timer = time(NULL);
-  //  time = ("ctime is %s\n", ctime(&timer));
-  //  printf("%d",time);
- // }
-
-
-
+  
   int main(void){
           
   serial_log();    
