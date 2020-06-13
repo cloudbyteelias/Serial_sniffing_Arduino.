@@ -60,7 +60,17 @@
      
 		close(fd); 
   }
-  
+
+    int deamon(int argc, char* argv[]){
+    printf("deamon");
+    
+    
+    }
+
+
+
+
+
   int main(void){
           
   serial_log();    
