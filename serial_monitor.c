@@ -15,6 +15,9 @@
   
 
   int serial_log(void){
+      
+      char read_buffer[100];   
+		  long int  bytes_read = 0;  
       FILE  *out;
       struct termios serial;	                      
       int fd;
@@ -45,13 +48,9 @@
     if(cfsetispeed(&serial, B9600) < 0 || cfsetospeed(&serial, B9600) < 0) {printf("speed serial error in %s",port);}
     if(tcsetattr(fd, TCSAFLUSH, &serial) < 0) {printf(" %s error to set attributes",port);}else{printf("%s port okay",port);}
 		
-    char read_buffer[100];   
-		long int  bytes_read = 0;    
- 		int i = 0;
-
 		bytes_read = read(fd,&read_buffer,100); 
 		
-    for(i=0;i<bytes_read;i++){
+    for(int i=0;i<bytes_read;i++){
          out = fopen("SerialCap.log","a");
          fprintf(out,"%c",read_buffer[i]);
          fclose(out);
@@ -70,7 +69,7 @@
 
     process_id = fork();
 
-    if(process_id < 0){printf("Error to create fork \n");exit(1);}
+    if(process_id < 0){printf("Error to create fork process");exit(1);}
     if(process_id > 0){printf("Running go to /tmp  %d", process_id);exit(0);}
     umask(0);
     sid = setsid();
@@ -81,6 +80,7 @@
     close(STDERR_FILENO);
     close(STDOUT_FILENO);
 
+
     fp = fopen("SERIALd.log","w+");
       while(1){ 
           sleep(10);
@@ -90,7 +90,8 @@
         }
     fclose(fp);
     return 0;
-        }
+    
+    }
 
 
   int main(void){
