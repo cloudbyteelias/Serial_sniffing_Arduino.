@@ -9,8 +9,6 @@
 #include <sys/types.h>
 #include <string.h>
 
-
-
  int serial_log();
  int deamon(); 
   
@@ -21,9 +19,7 @@
       const char port[] = "/dev/ttyUSB0";       
       fd = open(port,O_RDWR | O_NOCTTY);								
         if(fd == -1){						
-        	   //out = fopen("Error","a");
-             //fprintf("Error open %c",port);
-             //fclose(out);
+        	  printf("error to open serial port %s",port);
         }else
              printf("\n  %s Opened Successfully", port);
 
@@ -94,9 +90,6 @@
     return 0;
     
     }
-
-
-
 
 
   int main(void){
