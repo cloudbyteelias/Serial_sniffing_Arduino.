@@ -5,15 +5,17 @@
 #include <errno.h>   
 #include <time.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <string.h>
+
 
 
  int serial_log();
-
+ int deamon(); 
   
   int serial_log(void){
-      
       FILE  *out;
-      char line [50];
       struct termios serial;	                      
       int fd;
       const char port[] = "/dev/ttyUSB0";       
@@ -59,11 +61,37 @@
     }	 
      
 		close(fd); 
+
+    return 0;
   }
 
-    int deamon(int argc, char* argv[]){
-    printf("deamon");
-    
+    int deamon(void){
+    FILE *fp = NULL;
+    pid_t process_id = 0;
+    pid_t sid = 0;
+
+    process_id = fork();
+
+    if(process_id < 0){printf("Error to create fork \n");exit(1);}
+    if(process_id > 0){printf("Running %d", process_id);exit(0);}
+    umask(0);
+    sid = setsid();
+
+    if(sid < 0){exit(1);}
+    chdir("/tmp");
+    close(STDIN_FILENO);
+    close(STDERR_FILENO);
+    close(STDOUT_FILENO);
+
+    fp = fopen("SERIALd.log","w+");
+      while(1){ 
+          sleep(10);
+          fprintf(fp, "SERIAL LOG RUNNING \n");
+          fflush(fp);
+          serial_log();
+        }
+    fclose(fp);
+    return 0;
     
     }
 
@@ -72,8 +100,6 @@
 
 
   int main(void){
-          
-  serial_log();    
-
-  
+    deamon();      
+      
   }
