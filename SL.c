@@ -42,14 +42,20 @@
     if(cfsetispeed(&serial, B9600) < 0 || cfsetospeed(&serial, B9600) < 0) {printf("SPEED ERROR IN %s",port);}
     if(tcsetattr(fd, TCSAFLUSH, &serial) < 0) {printf(" %s ERROR TO SET attributes",port);}else{printf("%s Read Okay",port);}
 		
-    char read_buffer[32];   
+    char read_buffer[10];   
 		int  bytes_read = 0;    
  		int i = 0;
 
-		bytes_read = read(fd,&read_buffer,32); 
+		bytes_read = read(fd,&read_buffer,10); 
 		
-    for(i=0;i<bytes_read;i++)	 
-		    printf("%c",read_buffer[i]);
+    for(i=0;i<bytes_read;i++){
+         out = fopen("log","a");
+         fprintf(out,"%c",read_buffer[i]);
+         fclose(out);
+         
+    }	 
+     
+
 
 		close(fd); 
 
