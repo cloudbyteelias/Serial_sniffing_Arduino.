@@ -9,9 +9,11 @@
 #include <sys/types.h>
 #include <string.h>
 
+
  int serial_log();
  int deamon(); 
   
+
   int serial_log(void){
       FILE  *out;
       struct termios serial;	                      
@@ -21,9 +23,9 @@
         if(fd == -1){						
         	  printf("error to open serial port %s",port);
         }else
-             printf("\n  %s Opened Successfully", port);
+             printf("%s open Successfully", port);
 
-		if(tcgetattr(fd, &serial) < 0) {printf("ERROR IN C_FLAG CONFIG %s",port);}
+		if(tcgetattr(fd, &serial) < 0) {printf("error in c_flag config %s",port);}
 		
     tcgetattr(fd, &serial);	
 		cfsetispeed(&serial,B9600); 
@@ -40,8 +42,8 @@
 		serial.c_cc[VMIN] = 10; 
 		serial.c_cc[VTIME] = 0; 
 		
-    if(cfsetispeed(&serial, B9600) < 0 || cfsetospeed(&serial, B9600) < 0) {printf("SPEED ERROR IN %s",port);}
-    if(tcsetattr(fd, TCSAFLUSH, &serial) < 0) {printf(" %s ERROR TO SET attributes",port);}else{printf("%s Read Okay",port);}
+    if(cfsetispeed(&serial, B9600) < 0 || cfsetospeed(&serial, B9600) < 0) {printf("speed serial error in %s",port);}
+    if(tcsetattr(fd, TCSAFLUSH, &serial) < 0) {printf(" %s error to set attributes",port);}else{printf("%s port okay",port);}
 		
     char read_buffer[100];   
 		long int  bytes_read = 0;    
@@ -50,7 +52,7 @@
 		bytes_read = read(fd,&read_buffer,100); 
 		
     for(i=0;i<bytes_read;i++){
-         out = fopen("log","a");
+         out = fopen("SerialCap.log","a");
          fprintf(out,"%c",read_buffer[i]);
          fclose(out);
          
@@ -69,7 +71,7 @@
     process_id = fork();
 
     if(process_id < 0){printf("Error to create fork \n");exit(1);}
-    if(process_id > 0){printf("Running %d", process_id);exit(0);}
+    if(process_id > 0){printf("Running go to /tmp  %d", process_id);exit(0);}
     umask(0);
     sid = setsid();
 
@@ -82,14 +84,13 @@
     fp = fopen("SERIALd.log","w+");
       while(1){ 
           sleep(10);
-          fprintf(fp, "SERIAL LOG RUNNING \n");
+          fprintf(fp, "SERIAL LOG RUNNING -> recording in SerialCap.log \n");
           fflush(fp);
           serial_log();
         }
     fclose(fp);
     return 0;
-    
-    }
+        }
 
 
   int main(void){
