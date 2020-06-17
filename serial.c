@@ -15,7 +15,7 @@
   int serial_log(void){
       
       char read_buffer[100];   
-		  long int  bytes_read = 0;  
+      long int  bytes_read = 0;  
       FILE  *out;
       struct termios serial;	                      
       int fd;
